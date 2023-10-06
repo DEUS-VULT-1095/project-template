@@ -5,14 +5,13 @@ import org.slf4j.LoggerFactory;
 
 
 // task0
-public class HelloWorld {
+public final class HelloWorld {
     private static final Logger LOGGER = LoggerFactory.getLogger(HelloWorld.class);
+
+    private HelloWorld() {
+    }
 
     public static void logGreeting() {
         LOGGER.info("Hello, World!");
-    }
-
-    public static void main(String[] args) {
-        logGreeting();
     }
 }

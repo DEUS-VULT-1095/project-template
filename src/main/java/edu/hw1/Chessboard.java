@@ -1,25 +1,45 @@
 package edu.hw1;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 // task8
-public class Chessboard {
+public final class Chessboard {
+    private static final Properties PROPERTIES = new Properties();
+
+    static {
+        try {
+            PROPERTIES.load(new FileInputStream("src/main/resources/config.properties"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Chessboard() {
+    }
 
     public static boolean knightBoardCapture(int[][] array) {
-        for (int k = 0; k < 4; k++) {
+        int[][] validationArray = array;
+        int rotationTimes = Integer.parseInt(PROPERTIES.getProperty("rotations"));
+        for (int k = 0; k < rotationTimes; k++) {
             for (int i = 0; i < array.length; i++) {
                 for (int j = 0; j < array[0].length; j++) {
                     if (array[i][j] != 0) {
-                        if ((j + 2) < array[0].length) {
-                            if ((i + 1) < array.length) {
-                                if (array[i + 1][j + 2] != 0) return false;
+                        if ((j + 2) < array[0].length && (i + 1) < array.length) {
+                            if (array[i + 1][j + 2] != 0) {
+                                return false;
                             }
-                            if ((i - 1) > 0) {
-                                if (array[i - 1][j + 2] != 0) return false;
+                        }
+                        if ((j + 2) < array[0].length && (i - 1) > 0) {
+                            if (array[i - 1][j + 2] != 0) {
+                                return false;
                             }
                         }
                     }
                 }
             }
-            array = rotateArray(array);
+            validationArray = rotateArray(validationArray);
         }
 
         return true;

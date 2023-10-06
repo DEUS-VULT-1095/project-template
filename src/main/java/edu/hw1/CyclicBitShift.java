@@ -1,10 +1,15 @@
 package edu.hw1;
 
 // task7
-public class CyclicBitShift {
+public final class CyclicBitShift {
+
+    private CyclicBitShift() {
+    }
 
     public static int rotateRight(int n, int shift) {
-        if (n < 0 || shift < 0) throw new RuntimeException("Incorrect data provided");
+        if (n < 0 || shift < 0) {
+            throw new RuntimeException("Incorrect data provided for right rotate");
+        }
 
         int position = -1;
         int mold = n;
@@ -29,7 +34,9 @@ public class CyclicBitShift {
     }
 
     public static int rotateLeft(int n, int shift) {
-        if (n < 0 || shift < 0) throw new RuntimeException("Incorrect data provided");
+        if (n < 0 || shift < 0) {
+            throw new RuntimeException("Incorrect data provided for left rotate");
+        }
 
         int position = 0;
         int mold = n;

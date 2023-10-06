@@ -3,7 +3,10 @@ package edu.hw1;
 import java.util.Arrays;
 
 // task3
-public class NestedArray {
+public final class NestedArray {
+
+    private NestedArray() {
+    }
 
     public static boolean isNestable(int[] array1, int[] array2) {
         boolean isNestable;

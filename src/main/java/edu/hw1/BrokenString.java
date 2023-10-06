@@ -1,13 +1,9 @@
 package edu.hw1;
 
 // task4
-public class BrokenString {
+public final class BrokenString {
 
-    public static void main(String[] args) {
-        System.out.println(fixString("123456"));
-        System.out.println(fixString("hTsii  s aimex dpus rtni.g"));
-        System.out.println(fixString("badce"));
-        System.out.println(fixString(""));
+    private BrokenString() {
     }
 
     public static String fixString(String brokenString) {

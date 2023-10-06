@@ -1,12 +1,30 @@
 package edu.hw1;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 // task1
-public class Movie {
+public final class Movie {
+    private static final Properties PROPERTIES = new Properties();
+
+    static {
+        try {
+            PROPERTIES.load(new FileInputStream("src/main/resources/config.properties"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Movie() {
+    }
 
     public static int minutesToSeconds(String time) {
         String[] timeArray = time.split(":");
 
-        if (timeArray.length != 2) return -1;
+        if (timeArray.length != 2) {
+            return -1;
+        }
 
         int min;
         int sec;
@@ -18,9 +36,15 @@ public class Movie {
             return -1;
         }
 
-        if (sec > 59 || sec < 0 || min < 0) return -1;
+        int maxNumberSecDisplay = Integer.parseInt(PROPERTIES.getProperty("max.number.sec.display"));
 
-        int resultSec = min * 60 + sec;
+        if (sec > maxNumberSecDisplay || sec < 0 || min < 0) {
+            return -1;
+        }
+
+        int secPerMin = Integer.parseInt(PROPERTIES.getProperty("sec.per.min"));
+
+        int resultSec = min * secPerMin + sec;
 
         return resultSec;
     }
