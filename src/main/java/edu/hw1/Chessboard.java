@@ -1,28 +1,18 @@
 package edu.hw1;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
-
 // task8
 public final class Chessboard {
-    private static final Properties PROPERTIES = new Properties();
+    private static final int ROTATIONS_NUMBER = 4;
+    private static final int[][] MOVES = {{-2, -1}, {-2, 1}, {2, -1}, {2, 1}, {-1, -2}, {1, -2}, {-1, 2}, {1, 2}};
 
-    static {
-        try {
-            PROPERTIES.load(new FileInputStream("src/main/resources/config.properties"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     private Chessboard() {
     }
 
     public static boolean knightBoardCapture(int[][] array) {
         int[][] validationArray = array;
-        int rotationTimes = Integer.parseInt(PROPERTIES.getProperty("rotations"));
-        for (int k = 0; k < rotationTimes; k++) {
+
+        for (int k = 0; k < ROTATIONS_NUMBER; k++) {
             for (int i = 0; i < array.length; i++) {
                 for (int j = 0; j < array[0].length; j++) {
                     if (array[i][j] != 0) {
@@ -55,5 +45,24 @@ public final class Chessboard {
         }
 
         return rotatedArray;
+    }
+
+    public static boolean knightBoardCaptureVersionTwo(int[][] array) {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[0].length; j++) {
+                if (array[i][j] != 0) {
+                    for (int[] move : MOVES) {
+                        int x = j + move[1];
+                        int y = i + move[0];
+
+                        if (x >= 0 && x < array[0].length && y >= 0 && y < array.length && array[y][x] != 0) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+        return true;
     }
 }

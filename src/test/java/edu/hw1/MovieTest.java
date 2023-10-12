@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MovieTest {
 
     @Test
-    void testMinutesToSeconds_whenValidInput_returnsTotalSeconds() {
+    void testMinutesToSeconds_WhenValidInput_ReturnsTotalSeconds() {
         // Arrange
         String inputTime1 = "1:00";
         String inputTime2 = "13:56";
@@ -25,7 +25,7 @@ class MovieTest {
     }
 
     @Test
-    void testMinutesToSeconds_whenInvalidInput_returnsMinusOne() {
+    void testMinutesToSeconds_WhenInvalidInput_ReturnsMinusOne() {
         // Arrange
         String inputTime1 = "10:60";
         String inputTime2 = "10:-1";

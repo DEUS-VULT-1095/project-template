@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SpecialPalindromeTest {
 
     @Test
-    void testIsPalindromeDescendant_whenProvidedPalindrome_returnsTrue() {
+    void testIsPalindromeDescendant_WhenProvidedPalindrome_ReturnsTrue() {
         // Arrange
         int number1 = 11211230;
         int number2 = 13001120;
@@ -28,7 +28,7 @@ class SpecialPalindromeTest {
     }
 
     @Test
-    void testPalindromeDescendant_whenProvidedNonPalindrome_returnsFalse() {
+    void testPalindromeDescendant_WhenProvidedNonPalindrome_ReturnsFalse() {
         // Arrange
         int number1 = 1488;
         int number2 = 975;
@@ -46,7 +46,7 @@ class SpecialPalindromeTest {
     }
 
     @Test
-    void testPalindromeDescendant_whenProvidedNumberLessTwoDigits_returnsFalse() {
+    void testPalindromeDescendant_WhenProvidedNumberLessTwoDigits_ReturnsFalse() {
         // Arrange
         int number1 = 5;
         int number2 = 0;

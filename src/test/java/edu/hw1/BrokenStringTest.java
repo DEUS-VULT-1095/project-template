@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BrokenStringTest {
 
     @Test
-    void testFixString_whenBrokenStringInput_returnsFixedString() {
+    void testFixString_WhenBrokenStringInput_ReturnsFixedString() {
         // Arrange
         String brokenStr1 = "123456";
         String brokenStr2 = "hTsii  s aimex dpus rtni.g";
@@ -22,7 +22,7 @@ class BrokenStringTest {
     }
 
     @Test
-    void testFixString_whenProvidedStringWithOddNumberOfCharacters_returnsFixedString() {
+    void testFixString_WhenProvidedStringWithOddNumberOfCharacters_ReturnsFixedString() {
         // Arrange
         String brokenStr1 = "badce";
         String brokenStr2 = "w";
@@ -37,7 +37,7 @@ class BrokenStringTest {
     }
 
     @Test
-    void testFixString_whenProvidedEmptyString_returnsEmptyString() {
+    void testFixString_WhenProvidedEmptyString_ReturnsEmptyString() {
         // Arrange
         String brokenStr = "";
 

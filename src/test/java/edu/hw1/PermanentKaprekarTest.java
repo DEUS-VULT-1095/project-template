@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PermanentKaprekarTest {
 
     @Test
-    void testCountK_whenProvidedValidNumber_returnsNumberIterations() {
+    void testCountK_WhenProvidedValidNumber_ReturnsNumberIterations() {
         // Arrange
         int number1 = 6621;
         int number2 = 6554;
@@ -31,7 +31,7 @@ class PermanentKaprekarTest {
     }
 
     @Test
-    void testCountK_whenProvidedInvalidNumber_throwRuntimeException() {
+    void testCountK_WhenProvidedInvalidNumber_ThrowRuntimeException() {
         // Arrange
         int number1 = 999;
         int number2 = 9999;

@@ -1,38 +1,28 @@
 package edu.hw1;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Properties;
 
 // task6
 public final class PermanentKaprekar {
-    private final static Properties PROPERTIES = new Properties();
-
-    static {
-        try {
-            PROPERTIES.load(new FileInputStream("src/main/resources/config.properties"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private final static int LOWER_BOUND = 999;
+    private final static int UPPER_BOUND = 9999;
+    private final static int LAST_INDEX = 3;
+    private final static int MIN_NUMBER_DIGITS = 4;
+    private final static int MULTIPLIER = 10;
 
     private PermanentKaprekar() {
     }
 
     public static int countK(int number) {
-        int lowerBound = Integer.parseInt(PROPERTIES.getProperty("lower.bound"));
-        int upperBound = Integer.parseInt(PROPERTIES.getProperty("upper.bound"));
-        int lastIndex = Integer.parseInt(PROPERTIES.getProperty("last.index"));
-        if (number > lowerBound && number < upperBound) {
+        if (number > LOWER_BOUND && number < UPPER_BOUND) {
             String numberString = Integer.toString(number);
             for (int i = 1; i < numberString.length(); i++) {
                 if (numberString.charAt(0) != numberString.charAt(i)) {
                     break;
                 }
-                if (i == lastIndex) {
+                if (i == LAST_INDEX) {
                     throw new RuntimeException("All the numbers are the same");
                 }
             }
@@ -44,9 +34,7 @@ public final class PermanentKaprekar {
     private static int countK(int number, int callCount) {
         StringBuilder sb = new StringBuilder(Integer.toString(number));
 
-        int minNumberDigits = Integer.parseInt(PROPERTIES.getProperty("min.number.digits"));
-
-        while (sb.length() != minNumberDigits) {
+        while (sb.length() != MIN_NUMBER_DIGITS) {
             sb.insert(0, "0");
         }
 
@@ -58,17 +46,15 @@ public final class PermanentKaprekar {
         digitList.sort(Collections.reverseOrder());
         int bigNumber = 0;
 
-        int multiplier = Integer.parseInt(PROPERTIES.getProperty("multiplier"));
-
         for (int digit : digitList) {
-            bigNumber = bigNumber * multiplier + digit;
+            bigNumber = bigNumber * MULTIPLIER + digit;
         }
 
         Collections.sort(digitList);
         int smallNumber = 0;
 
         for (int digit : digitList) {
-            smallNumber = smallNumber * multiplier + digit;
+            smallNumber = smallNumber * MULTIPLIER + digit;
         }
 
         int result = bigNumber - smallNumber;

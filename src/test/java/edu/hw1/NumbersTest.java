@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class NumbersTest {
 
     @Test
-    void testCountDigits_whenIntInput_returnsDigitCount() {
+    void testCountDigits_WhenIntInput_ReturnsDigitCount() {
         // Arrange
         int number1 = 4666;
         int number2 = 544;

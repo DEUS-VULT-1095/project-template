@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class NestedArrayTest {
 
     @Test
-    void testIsNestable_whenNestableArraysInput_returnsTrue() {
+    void testIsNestable_WhenNestableArraysInput_ReturnsTrue() {
         // Arrange
         int[] array1 = {1, 2, 3, 4};
         int[] array2 = {0, 6};
@@ -25,7 +25,7 @@ class NestedArrayTest {
     }
 
     @Test
-    void testIsNestable_whenNonNestableArraysInput_returnsFalse() {
+    void testIsNestable_WhenNonNestableArraysInput_ReturnsFalse() {
         // Arrange
         int[] array1 = {9, 9, 8};
         int[] array2 = {8, 9};
@@ -42,7 +42,7 @@ class NestedArrayTest {
     }
 
     @Test
-    void testIsNestable_whenEmptyArraysInput_returnsFalse() {
+    void testIsNestable_WhenEmptyArraysInput_ReturnsFalse() {
         // Arrange
         int[] array1 = {};
         int[] array2 = {1, 1, 4};

@@ -2,13 +2,14 @@ package edu.hw1;
 
 // task7
 public final class CyclicBitShift {
+    private static final String ERROR_MESSAGE = "Incorrect data provided for right rotate";
 
     private CyclicBitShift() {
     }
 
     public static int rotateRight(int n, int shift) {
         if (n < 0 || shift < 0) {
-            throw new RuntimeException("Incorrect data provided for right rotate");
+            throw new RuntimeException(ERROR_MESSAGE);
         }
 
         int position = -1;
@@ -35,7 +36,7 @@ public final class CyclicBitShift {
 
     public static int rotateLeft(int n, int shift) {
         if (n < 0 || shift < 0) {
-            throw new RuntimeException("Incorrect data provided for left rotate");
+            throw new RuntimeException(ERROR_MESSAGE);
         }
 
         int position = 0;
@@ -57,5 +58,34 @@ public final class CyclicBitShift {
         }
 
         return mold;
+    }
+
+    public static int rotateRightVersionTwo(int n, int shift) {
+        if (n < 0 || shift < 0) {
+            throw new RuntimeException(ERROR_MESSAGE);
+        }
+
+        String binaryString = Integer.toBinaryString(n);
+
+        for (int i = 0; i < shift; i++) {
+            binaryString = binaryString.charAt(binaryString.length() - 1)
+                + binaryString.substring(0, binaryString.length() - 1);
+        }
+
+        return Integer.parseInt(binaryString, 2);
+    }
+
+    public static int rotateLeftVersionTwo(int n, int shift) {
+        if (n < 0 || shift < 0) {
+            throw new RuntimeException(ERROR_MESSAGE);
+        }
+
+        String binaryString = Integer.toBinaryString(n);
+
+        for (int i = 0; i < shift; i++) {
+            binaryString = binaryString.substring(1) + binaryString.charAt(0);
+        }
+
+        return Integer.parseInt(binaryString, 2);
     }
 }

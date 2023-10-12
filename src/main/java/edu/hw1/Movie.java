@@ -1,20 +1,9 @@
 package edu.hw1;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
-
 // task1
 public final class Movie {
-    private static final Properties PROPERTIES = new Properties();
-
-    static {
-        try {
-            PROPERTIES.load(new FileInputStream("src/main/resources/config.properties"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static final int MAX_NUMBER_SEC_DISPLAY = 59;
+    private static final int SEC_PER_MINUTE = 60;
 
     private Movie() {
     }
@@ -36,13 +25,13 @@ public final class Movie {
             return -1;
         }
 
-        int maxNumberSecDisplay = Integer.parseInt(PROPERTIES.getProperty("max.number.sec.display"));
+        int maxNumberSecDisplay = MAX_NUMBER_SEC_DISPLAY;
 
         if (sec > maxNumberSecDisplay || sec < 0 || min < 0) {
             return -1;
         }
 
-        int secPerMin = Integer.parseInt(PROPERTIES.getProperty("sec.per.min"));
+        int secPerMin = SEC_PER_MINUTE;
 
         int resultSec = min * secPerMin + sec;
 
