@@ -1,47 +1,42 @@
 package edu.hw1;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PermanentKaprekarTest {
 
-    @Test
-    void testCountK_WhenProvidedValidNumber_ReturnsNumberIterations() {
+    @ParameterizedTest
+    @CsvSource({
+        "6621, 5",
+        "6554, 4",
+        "1234, 3",
+        "1000, 5",
+        "9998, 5"
+    })
+    void testCountK_WhenProvidedValidNumber_ReturnsNumberIterations(int providedNumber, int expectedIterationCount) {
         // Arrange
-        int number1 = 6621;
-        int number2 = 6554;
-        int number3 = 1234;
-        int number4 = 1000;
-        int number5 = 9998;
 
         // Act
-        int countIterations1 = PermanentKaprekar.countK(number1);
-        int countIterations2 = PermanentKaprekar.countK(number2);
-        int countIterations3 = PermanentKaprekar.countK(number3);
-        int countIterations4 = PermanentKaprekar.countK(number4);
-        int countIterations5 = PermanentKaprekar.countK(number5);
+        int actualIterationCount = PermanentKaprekar.countK(providedNumber);
 
         // Assert
-        assertEquals(5, countIterations1);
-        assertEquals(4, countIterations2);
-        assertEquals(3, countIterations3);
-        assertEquals(5, countIterations4);
-        assertEquals(5, countIterations5);
+        assertEquals(expectedIterationCount, actualIterationCount);
     }
 
-    @Test
-    void testCountK_WhenProvidedInvalidNumber_ThrowRuntimeException() {
+    @ParameterizedTest
+    @ValueSource(ints = {999, 9999, 10000})
+    void testCountK_WhenProvidedInvalidNumber_ThrowRuntimeException(int providedNumber) {
         // Arrange
-        int number1 = 999;
-        int number2 = 9999;
-        int number3 = 10000;
+        String expectedExceptionMessage = "The boundaries of the incoming value are violated";
 
         // Act
+        RuntimeException actualException = assertThrows(RuntimeException.class,
+            () -> PermanentKaprekar.countK(providedNumber), "Should have thrown Runtime exception");
 
         // Assert
-        assertThrows(RuntimeException.class, () -> PermanentKaprekar.countK(number1));
-        assertThrows(RuntimeException.class, () -> PermanentKaprekar.countK(number2));
-        assertThrows(RuntimeException.class, () -> PermanentKaprekar.countK(number3));
+        assertEquals(expectedExceptionMessage, actualException.getMessage(), "Incorrect exception message");
     }
 }

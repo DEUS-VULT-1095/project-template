@@ -2,14 +2,14 @@ package edu.hw1;
 
 // task7
 public final class CyclicBitShift {
-    private static final String ERROR_MESSAGE = "Incorrect data provided for right rotate";
+    private static final String EXCEPTION_MESSAGE = "Incorrect data provided for rotate";
 
     private CyclicBitShift() {
     }
 
     public static int rotateRight(int n, int shift) {
         if (n < 0 || shift < 0) {
-            throw new RuntimeException(ERROR_MESSAGE);
+            throw new RuntimeException(EXCEPTION_MESSAGE);
         }
 
         int position = -1;
@@ -36,7 +36,7 @@ public final class CyclicBitShift {
 
     public static int rotateLeft(int n, int shift) {
         if (n < 0 || shift < 0) {
-            throw new RuntimeException(ERROR_MESSAGE);
+            throw new RuntimeException(EXCEPTION_MESSAGE);
         }
 
         int position = 0;
@@ -62,7 +62,7 @@ public final class CyclicBitShift {
 
     public static int rotateRightVersionTwo(int n, int shift) {
         if (n < 0 || shift < 0) {
-            throw new RuntimeException(ERROR_MESSAGE);
+            throw new RuntimeException(EXCEPTION_MESSAGE);
         }
 
         String binaryString = Integer.toBinaryString(n);
@@ -77,7 +77,7 @@ public final class CyclicBitShift {
 
     public static int rotateLeftVersionTwo(int n, int shift) {
         if (n < 0 || shift < 0) {
-            throw new RuntimeException(ERROR_MESSAGE);
+            throw new RuntimeException(EXCEPTION_MESSAGE);
         }
 
         String binaryString = Integer.toBinaryString(n);

@@ -1,50 +1,52 @@
 package edu.hw1;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class BrokenStringTest {
 
-    @Test
-    void testFixString_WhenBrokenStringInput_ReturnsFixedString() {
+    @ParameterizedTest
+    @CsvSource(value = {
+        "123456, 214365",
+        "hTsii  s aimex dpus rtni.g, This is a mixed up string."
+    })
+    void testFixString_WhenBrokenStringInput_ReturnsFixedString(String brokenString, String expectedString) {
         // Arrange
-        String brokenStr1 = "123456";
-        String brokenStr2 = "hTsii  s aimex dpus rtni.g";
 
         // Act
-        String fixedStr1 = BrokenString.fixString(brokenStr1);
-        String fixedStr2 = BrokenString.fixString(brokenStr2);
+        String actualString = BrokenString.fixString(brokenString);
 
         // Assert
-        assertEquals("214365", fixedStr1);
-        assertEquals("This is a mixed up string.", fixedStr2);
+        assertEquals(expectedString, actualString);
     }
 
-    @Test
-    void testFixString_WhenProvidedStringWithOddNumberOfCharacters_ReturnsFixedString() {
+    @ParameterizedTest
+    @CsvSource({
+        "badce, abcde",
+        "w, w"
+    })
+    void testFixString_WhenProvidedStringWithOddNumberOfCharacters_ReturnsFixedString(String brokenString, String expectedString) {
         // Arrange
-        String brokenStr1 = "badce";
-        String brokenStr2 = "w";
 
         // Act
-        String fixedStr1 = BrokenString.fixString(brokenStr1);
-        String fixedStr2 = BrokenString.fixString(brokenStr2);
+        String actualString = BrokenString.fixString(brokenString);
 
         // Assert
-        assertEquals("abcde", fixedStr1);
-        assertEquals("w", fixedStr2);
+        assertEquals(expectedString, actualString);
     }
 
     @Test
     void testFixString_WhenProvidedEmptyString_ReturnsEmptyString() {
         // Arrange
-        String brokenStr = "";
+        String brokenString = "";
 
         // Act
-        String fixedStr = BrokenString.fixString(brokenStr);
+        String actualString = BrokenString.fixString(brokenString);
 
         // Assert
-        assertEquals("", fixedStr);
+        assertEquals("", actualString);
     }
 }

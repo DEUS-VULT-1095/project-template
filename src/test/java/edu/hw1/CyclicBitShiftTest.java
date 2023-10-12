@@ -1,168 +1,145 @@
 package edu.hw1;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CyclicBitShiftTest {
 
-    @Test
-    void testRotateRight_WhenProvidedValidData_ReturnsNumber() {
+    @ParameterizedTest
+    @CsvSource({
+        "8, 1, 4",
+        "5, 2, 3",
+        "0, 2, 0",
+        "1, 0, 1"
+    })
+    void testRotateRight_WhenProvidedValidData_ReturnsNumber(int providedNumber, int shift, int expectedNumber) {
         // Arrange
-        int number1 = 8;
-        int shift1 = 1;
-        int number2 = 5;
-        int shift2 = 2;
-        int number3 = 0;
-        int shift3 = 2;
-        int number4 = 1;
-        int shift4 = 0;
 
         // Act
-        int result1 = CyclicBitShift.rotateRight(number1, shift1);
-        int result2 = CyclicBitShift.rotateRight(number2, shift2);
-        int result3 = CyclicBitShift.rotateRight(number3, shift3);
-        int result4 = CyclicBitShift.rotateRight(number4, shift4);
+        int actualNumber = CyclicBitShift.rotateRight(providedNumber, shift);
 
         // Assert
-        assertEquals(4, result1);
-        assertEquals(3, result2);
-        assertEquals(0, result3);
-        assertEquals(1, result4);
+        assertEquals(expectedNumber, actualNumber);
     }
 
-    @Test
-    void testRotateRight_WhenProvidedInvalidData_ThrowRuntimeException() {
+    @ParameterizedTest
+    @CsvSource({
+        "-2, 1",
+        "5, -2"
+    })
+    void testRotateRight_WhenProvidedInvalidData_ThrowRuntimeException(int providedNumber, int shift) {
         // Arrange
-        int number1 = -2;
-        int shift1 = 1;
-        int number2 = 5;
-        int shift2 = -2;
+        String expectedErrorMessage = "Incorrect data provided for rotate";
 
-        // Act
+        // Act & Assert
+        RuntimeException actualException = assertThrows(RuntimeException.class,
+            () -> CyclicBitShift.rotateRight(providedNumber, shift), "Should have thrown RuntimeException");
 
         // Assert
-        assertThrows(RuntimeException.class, () -> CyclicBitShift.rotateRight(number1, shift1));
-        assertThrows(RuntimeException.class, () -> CyclicBitShift.rotateRight(number2, shift2));
+        assertEquals(expectedErrorMessage, actualException.getMessage(), "Incorrect exception message");
     }
 
-    @Test
-    void testRotateLeft_WhenProvidedValidData_ReturnsNumber() {
+    @ParameterizedTest
+    @CsvSource({
+        "16, 1, 1",
+        "17, 2, 6",
+        "0, 2, 0",
+        "1, 0, 1"
+    })
+    void testRotateLeft_WhenProvidedValidData_ReturnsNumber(int providedNumber, int shift, int expectedNumber) {
         // Arrange
-        int number1 = 16;
-        int shift1 = 1;
-        int number2 = 17;
-        int shift2 = 2;
-        int number3 = 0;
-        int shift3 = 2;
-        int number4 = 1;
-        int shift4 = 0;
 
         // Act
-        int result1 = CyclicBitShift.rotateLeft(number1, shift1);
-        int result2 = CyclicBitShift.rotateLeft(number2, shift2);
-        int result3 = CyclicBitShift.rotateLeft(number3, shift3);
-        int result4 = CyclicBitShift.rotateLeft(number4, shift4);
+        int actualNumber = CyclicBitShift.rotateLeft(providedNumber, shift);
 
         // Assert
-        assertEquals(1, result1);
-        assertEquals(6, result2);
-        assertEquals(0, result3);
-        assertEquals(1, result4);
+        assertEquals(expectedNumber, actualNumber);
     }
 
-    @Test
-    void testRotateLeft_WhenProvidedInvalidData_ThrowRuntimeException() {
+    @ParameterizedTest
+    @CsvSource({
+        "-2, 1",
+        "5, -2"
+    })
+    void testRotateLeft_WhenProvidedInvalidData_ThrowRuntimeException(int providedNumber, int shift) {
         // Arrange
-        int number1 = -2;
-        int shift1 = 1;
-        int number2 = 5;
-        int shift2 = -2;
+        String expectedErrorMessage = "Incorrect data provided for rotate";
 
-        // Act
+        // Act & Assert
+        RuntimeException actualException = assertThrows(RuntimeException.class,
+            () -> CyclicBitShift.rotateLeft(providedNumber, shift), "Should have thrown RuntimeException");
 
         // Assert
-        assertThrows(RuntimeException.class, () -> CyclicBitShift.rotateLeft(number1, shift1));
-        assertThrows(RuntimeException.class, () -> CyclicBitShift.rotateLeft(number2, shift2));
+        assertEquals(expectedErrorMessage, actualException.getMessage(), "Incorrect exception message");
     }
 
-    @Test
-    void testRotateRightVersionTwo_whenProvidedValidData_returnsNumber() {
+    @ParameterizedTest
+    @CsvSource({
+        "8, 1, 4",
+        "5, 2, 3",
+        "0, 2, 0",
+        "1, 0, 1"
+    })
+    void testRotateRightVersionTwo_WhenProvidedValidData_ReturnsNumber(int providedNumber, int shift, int expectedNumber) {
         // Arrange
-        int number1 = 8;
-        int shift1 = 1;
-        int number2 = 5;
-        int shift2 = 2;
-        int number3 = 0;
-        int shift3 = 2;
-        int number4 = 1;
-        int shift4 = 0;
 
         // Act
-        int result1 = CyclicBitShift.rotateRightVersionTwo(number1, shift1);
-        int result2 = CyclicBitShift.rotateRightVersionTwo(number2, shift2);
-        int result3 = CyclicBitShift.rotateRightVersionTwo(number3, shift3);
-        int result4 = CyclicBitShift.rotateRightVersionTwo(number4, shift4);
+        int actualNumber = CyclicBitShift.rotateRightVersionTwo(providedNumber, shift);
 
         // Assert
-        assertEquals(4, result1);
-        assertEquals(3, result2);
-        assertEquals(0, result3);
-        assertEquals(1, result4);
+        assertEquals(expectedNumber, actualNumber);
     }
 
-    @Test
-    void testRotateRightVersionTwo_WhenProvidedInvalidData_ThrowRuntimeException() {
+    @ParameterizedTest
+    @CsvSource({
+        "-2, 1",
+        "5, -2"
+    })
+    void testRotateRightVersionTwo_WhenProvidedInvalidData_ThrowRuntimeException(int providedNumber, int shift) {
         // Arrange
-        int number1 = -2;
-        int shift1 = 1;
-        int number2 = 5;
-        int shift2 = -2;
+        String expectedErrorMessage = "Incorrect data provided for rotate";
 
-        // Act
+        // Act & Assert
+        RuntimeException actualException = assertThrows(RuntimeException.class,
+            () -> CyclicBitShift.rotateRightVersionTwo(providedNumber, shift), "Should have thrown RuntimeException");
 
         // Assert
-        assertThrows(RuntimeException.class, () -> CyclicBitShift.rotateRightVersionTwo(number1, shift1));
-        assertThrows(RuntimeException.class, () -> CyclicBitShift.rotateRightVersionTwo(number2, shift2));
+        assertEquals(expectedErrorMessage, actualException.getMessage(), "Incorrect exception message");
     }
 
-    @Test
-    void testRotateLeftVersionTwo_WhenProvidedValidData_ReturnsNumber() {
+    @ParameterizedTest
+    @CsvSource({
+        "16, 1, 1",
+        "17, 2, 6",
+        "0, 2, 0",
+        "1, 0, 1"
+    })
+    void testRotateLeftVersionTwo_WhenProvidedValidData_ReturnsNumber(int providedNumber, int shift, int expectedNumber) {
         // Arrange
-        int number1 = 16;
-        int shift1 = 1;
-        int number2 = 17;
-        int shift2 = 2;
-        int number3 = 0;
-        int shift3 = 2;
-        int number4 = 1;
-        int shift4 = 0;
 
         // Act
-        int result1 = CyclicBitShift.rotateLeftVersionTwo(number1, shift1);
-        int result2 = CyclicBitShift.rotateLeftVersionTwo(number2, shift2);
-        int result3 = CyclicBitShift.rotateLeftVersionTwo(number3, shift3);
-        int result4 = CyclicBitShift.rotateLeftVersionTwo(number4, shift4);
+        int actualNumber = CyclicBitShift.rotateLeftVersionTwo(providedNumber, shift);
 
         // Assert
-        assertEquals(1, result1);
-        assertEquals(6, result2);
-        assertEquals(0, result3);
-        assertEquals(1, result4);
+        assertEquals(expectedNumber, actualNumber);
     }
 
-    @Test
-    void testRotateLeftVersionTwo_WhenProvidedInvalidData_ThrowRuntimeException() {
+    @ParameterizedTest
+    @CsvSource({
+        "-2, 1",
+        "5, -2"
+    })
+    void testRotateLeftVersionTwo_WhenProvidedInvalidData_ThrowRuntimeException(int providedNumber, int shift) {
         // Arrange
-        int number1 = -2;
-        int shift1 = 1;
-        int number2 = 5;
-        int shift2 = -2;
+        String expectedErrorMessage = "Incorrect data provided for rotate";
 
-        // Act
+        // Act & Assert
+        RuntimeException actualException = assertThrows(RuntimeException.class,
+            () -> CyclicBitShift.rotateLeftVersionTwo(providedNumber, shift), "Should have thrown RuntimeException");
 
         // Assert
-        assertThrows(RuntimeException.class, () -> CyclicBitShift.rotateLeftVersionTwo(number1, shift1));
-        assertThrows(RuntimeException.class, () -> CyclicBitShift.rotateLeftVersionTwo(number2, shift2));
+        assertEquals(expectedErrorMessage, actualException.getMessage(), "Incorrect exception message");
     }
 }

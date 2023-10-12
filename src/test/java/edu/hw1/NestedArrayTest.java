@@ -1,44 +1,51 @@
 package edu.hw1;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 class NestedArrayTest {
 
-    @Test
-    void testIsNestable_WhenNestableArraysInput_ReturnsTrue() {
+    @ParameterizedTest
+    @MethodSource
+    void testIsNestable_WhenNestableArraysInput_ReturnsTrue(int[] nestedArray, int[] extendedArray) {
         // Arrange
-        int[] array1 = {1, 2, 3, 4};
-        int[] array2 = {0, 6};
-        int[] array3 = {3, 1};
-        int[] array4 = {4, 0};
 
         // Act
-        boolean isNestable1 = NestedArray.isNestable(array1, array2);
-        boolean isNestable2 = NestedArray.isNestable(array3, array4);
+        boolean isNestable = NestedArray.isNestable(nestedArray, extendedArray);
 
         // Assert
-        assertTrue(isNestable1);
-        assertTrue(isNestable2);
-
+        assertTrue(isNestable);
     }
 
-    @Test
-    void testIsNestable_WhenNonNestableArraysInput_ReturnsFalse() {
+    private static Stream<Arguments> testIsNestable_WhenNestableArraysInput_ReturnsTrue() {
+        return Stream.of(
+            Arguments.of(new int[] {1, 2, 3, 4}, new int[] {0, 6}),
+            Arguments.of(new int[] {3, 1}, new int[] {4, 0})
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource
+    void testIsNestable_WhenNonNestableArraysInput_ReturnsFalse(int[] nestedArray, int[] extendArray) {
         // Arrange
-        int[] array1 = {9, 9, 8};
-        int[] array2 = {8, 9};
-        int[] array3 = {1, 2, 3, 4};
-        int[] array4 = {2, 3};
 
         // Act
-        boolean isNestable1 = NestedArray.isNestable(array1, array2);
-        boolean isNestable2 = NestedArray.isNestable(array3, array4);
+        boolean isNestable = NestedArray.isNestable(nestedArray, extendArray);
 
         // Assert
-        assertFalse(isNestable1);
-        assertFalse(isNestable2);
+        assertFalse(isNestable);
+    }
+
+    private static Stream<Arguments> testIsNestable_WhenNonNestableArraysInput_ReturnsFalse() {
+        return Stream.of(
+            Arguments.of(new int[] {9, 9, 8}, new int[] {8, 9}),
+            Arguments.of(new int[] {1, 2, 3, 4}, new int[] {2, 3})
+        );
     }
 
     @Test
