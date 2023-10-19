@@ -5,7 +5,7 @@ public class StableConnection implements Connection {
     @SuppressWarnings("RegexpSinglelineJava")
     @Override
     public void execute(String command) {
-        System.out.println("Executing command on a stable connection: " + command);
+        System.out.print("Executing command on a stable connection: " + command);
     }
 
     @SuppressWarnings("RegexpSinglelineJava")

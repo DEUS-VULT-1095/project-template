@@ -27,7 +27,7 @@ class StableConnectionTest {
         try (StableConnection stableConnection = new StableConnection()) {
 
             String command = "your_command";
-            String expectedOutput = "Executing command on a stable connection: " + command + "\r\n";
+            String expectedOutput = "Executing command on a stable connection: " + command;
 
             // Act
             stableConnection.execute(command);
