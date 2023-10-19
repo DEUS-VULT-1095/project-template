@@ -53,7 +53,7 @@ class SessionTest {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(byteArrayOutputStream));
 
-        String expectedOut = "You lost!\n\r\n";
+        String expectedOut = "You lost!";
 
         // Act
         session.startGame();
