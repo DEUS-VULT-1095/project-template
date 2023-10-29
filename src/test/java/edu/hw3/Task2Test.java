@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -49,12 +50,12 @@ class Task2Test {
         assertEquals(exceptionMessage, actualException.getMessage(), "Incorrect exception message");
     }
 
-    @DisplayName("Test clusterize method when provided not balanced brackets")
+    @DisplayName("Test clusterize method when provided string not contain only brackets")
     @Test
-    void testClusterize_whenProvidedStringContainNotBalancedBrackets_throwsRuntimeException() {
+    void testClusterize_whenProvidedStringContainNotOnlyBrackets_throwsRuntimeException() {
         // Assert
-        String providedString = "((())";
-        String exceptionMessage = "Brackets are out of balance";
+        String providedString = "(asd1(()))";
+        String exceptionMessage = "String must contain only '(' and ')'";
 
         // Act & Assert
         RuntimeException actualException = assertThrows(RuntimeException.class, () -> Task2.clusterize(providedString),
@@ -64,14 +65,14 @@ class Task2Test {
         assertEquals(exceptionMessage, actualException.getMessage(), "Incorrect exception message");
     }
 
-    @DisplayName("Test clusterize method when provided string not contain only brackets")
-    @Test
-    void testClusterize_whenProvidedStringContainNotOnlyBrackets_throwsRuntimeException() {
-        // Assert
-        String providedString = "(asd1(()))";
-        String exceptionMessage = "String must contain only '(' and ')'";
+    @DisplayName("Test clusterize method when provided string contain incorrect bracket construction")
+    @ParameterizedTest
+    @ValueSource(strings = {"((()", ")(", "((())(", "((())"})
+    void testClusterize_whenProvidedStringContainIncorrectBracketConstruction_throwsRuntimeException(String providedString) {
+        // Arrange
+        String exceptionMessage = "Incorrect construction of brackets";
 
-        // Act & Assert
+        // Act
         RuntimeException actualException = assertThrows(RuntimeException.class, () -> Task2.clusterize(providedString),
             "Should be thrown RuntimeException");
 

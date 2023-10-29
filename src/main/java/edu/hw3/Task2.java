@@ -12,29 +12,31 @@ public final class Task2 {
             throw new RuntimeException("String not contain '(' and ')'");
         }
 
-        if (providedString.length() % 2 != 0) {
-            throw new RuntimeException("Brackets are out of balance");
-        }
-
         List<String> clusterList = new ArrayList<>();
         int leftBracketCount = 0;
         int rightBracketCount = 0;
         StringBuilder sb = new StringBuilder();
 
-        for (char next: providedString.toCharArray()) {
-            sb.append(next);
+        for (int i = 0; i < providedString.length(); i++) {
+            char nextChar = providedString.charAt(i);
+            sb.append(nextChar);
 
-            if (String.valueOf(next).equals("(")) {
+            if (String.valueOf(nextChar).equals("(") && i != (providedString.length() - 1)) {
                 leftBracketCount++;
-            } else if (String.valueOf(next).equals(")")) {
+            } else if (String.valueOf(nextChar).equals(")") && i != 0) {
                 rightBracketCount++;
-            } else {
+            } else if (!String.valueOf(nextChar).equals("(") && !String.valueOf(nextChar).equals(")")) {
                 throw new RuntimeException("String must contain only '(' and ')'");
             }
 
             if (leftBracketCount == rightBracketCount) {
                 clusterList.add(sb.toString());
                 sb = new StringBuilder();
+            }
+
+            if ((i == (providedString.length() - 1) && leftBracketCount != rightBracketCount)
+                || (leftBracketCount == 0 && rightBracketCount == 0)) {
+                throw new RuntimeException("Incorrect construction of brackets");
             }
         }
 
