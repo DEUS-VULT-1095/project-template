@@ -3,7 +3,6 @@ package edu.hw4;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -119,18 +118,18 @@ public record Animal(
     }
 
     // task11
-    public static List<Animal> getAnimalListCanBite(List<Animal> animals) {
+    @SuppressWarnings("MagicNumber")
+    public static List<Animal> getAnimalListCanBiteAndHeightOver100(List<Animal> animals) {
         return animals.stream()
-            .filter(Animal::bites)
+            .filter(animal -> animal.bites() && animal.height() > 100)
             .toList();
     }
 
     // task12
     public static Integer getAmountWeightBiggerHeight(List<Animal> animals) {
-        return animals.stream()
+        return (int) animals.stream()
             .filter(animal -> animal.weight() > animal.height())
-            .mapToInt(animal -> 1)
-            .sum();
+            .count();
     }
 
     // task13
@@ -147,11 +146,10 @@ public record Animal(
     }
 
     // task15
-    public static Integer getSumWeightByAge(List<Animal> animals, int k, int l) {
+    public static Map<Animal.Type, Integer> getSumWeightByAge(List<Animal> animals, int k, int l) {
         return animals.stream()
             .filter(animal -> animal.age() >= k && animal.age() <= l)
-            .mapToInt(Animal::weight)
-            .sum();
+            .collect(Collectors.groupingBy(Animal::type, Collectors.summingInt(Animal::weight)));
     }
 
     // task16
@@ -208,27 +206,29 @@ public record Animal(
 
     // task19
     public static Map<String, Set<ValidationError>> getErrors(List<Animal> animals) {
-        Map<String, Set<ValidationError>> animalsWithErrors = new HashMap<>();
+        return animals.stream()
+            .flatMap(animal -> validateAnimal(animal).stream()
+                .map(error -> Map.entry(animal.name(), error)))
+            .collect(Collectors.groupingBy(
+                Map.Entry::getKey,
+                Collectors.mapping(Map.Entry::getValue, Collectors.toSet())
+            ));
+    }
 
-        for (Animal animal : animals) {
-            Set<ValidationError> errors = new HashSet<>();
+    private static Set<ValidationError> validateAnimal(Animal animal) {
+        Set<ValidationError> errors = new HashSet<>();
 
-            if (animal.age() < 0) {
-                errors.add(new ValidationError("Age negative"));
-            }
-            if (animal.height() <= 0) {
-                errors.add(new ValidationError("Height not positive"));
-            }
-            if (animal.weight() <= 0) {
-                errors.add(new ValidationError("Weight not positive"));
-            }
-
-            if (!errors.isEmpty()) {
-                animalsWithErrors.put(animal.name(), errors);
-            }
+        if (animal.age() < 0) {
+            errors.add(new ValidationError("Age negative"));
+        }
+        if (animal.height() <= 0) {
+            errors.add(new ValidationError("Height not positive"));
+        }
+        if (animal.weight() <= 0) {
+            errors.add(new ValidationError("Weight not positive"));
         }
 
-         return animalsWithErrors;
+        return  errors;
     }
 
     // task20

@@ -4,9 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import javax.print.attribute.HashPrintJobAttributeSet;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -202,14 +200,14 @@ class AnimalTest {
 
     // task11
     @Test
-    void testGetAnimalListCanBite_whenProvidedAnimalList_returnsList() {
+    void getAnimalListCanBiteAndHeightOver100_whenProvidedAnimalList_returnsList() {
         // Arrange
         List<Animal> expectedList = testAnimalList.stream()
-            .filter(Animal::bites)
+            .filter(animal -> animal.bites() && animal.height() > 100)
             .toList();
 
         // Act
-        List<Animal> actualList = Animal.getAnimalListCanBite(animals);
+        List<Animal> actualList = Animal.getAnimalListCanBiteAndHeightOver100(animals);
 
         // Assert
         assertEquals(expectedList, actualList);
@@ -219,10 +217,9 @@ class AnimalTest {
     @Test
     void testGetAmountWeightBiggerHeight_whenProvidedAnimalList_returnsAmount() {
         // Arrange
-        int expectedAmount = testAnimalList.stream()
+        int expectedAmount = (int) testAnimalList.stream()
             .filter(animal -> animal.weight() > animal.height())
-            .mapToInt(animal -> 1)
-            .sum();
+            .count();
 
         // Act
         int actualAmount = Animal.getAmountWeightBiggerHeight(animals);
@@ -267,16 +264,29 @@ class AnimalTest {
         // Arrange
         int k = 4;
         int l = 10;
-        int expectedSum = testAnimalList.stream()
+        Map<Animal.Type, Integer> expectedMap = testAnimalList.stream()
             .filter(animal -> animal.age() >= k && animal.age() <= l)
-            .mapToInt(Animal::weight)
-            .sum();
+            .collect(Collectors.groupingBy(Animal::type, Collectors.summingInt(Animal::weight)));
 
         // Act
-        int actualSum = Animal.getSumWeightByAge(animals, k, l);
+        Map<Animal.Type, Integer> actualMap = Animal.getSumWeightByAge(animals, k, l);
 
         // Assert
-        assertEquals(expectedSum, actualSum);
+        assertTrue(equalsMap(expectedMap, actualMap));
+    }
+
+    private boolean equalsMap(Map<Animal.Type, Integer> expectedMap, Map<Animal.Type, Integer> actualMap) {
+        if (expectedMap.size() != actualMap.size()) {
+            return false;
+        }
+
+        for (Map.Entry<Animal.Type, Integer> next : expectedMap.entrySet()) {
+            if (!actualMap.containsKey(next.getKey()) || !next.getValue().equals(actualMap.get(next.getKey()))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     // task16
