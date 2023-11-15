@@ -172,15 +172,17 @@ class FiltersTest {
         // Arrange
         filter = Filters.REGULAR_FILE;
         List<Path> expectedList = new ArrayList<>();
+        expectedList.add(pathTempFile3.toAbsolutePath());
         expectedList.add(pathTempFile1.toAbsolutePath());
         expectedList.add(pathTempFile2.toAbsolutePath());
-        expectedList.add(pathTempFile3.toAbsolutePath());
+        expectedList.sort(Path::compareTo);
 
         // Act
         DirectoryStream<Path> entries = Files.newDirectoryStream(pathTempDir1, filter);
         List<Path> actualList = new ArrayList<>();
         entries.forEach(e -> actualList.add(e.toAbsolutePath()));
         entries.close();
+        actualList.sort(Path::compareTo);
 
         // Assert
         assertEquals(expectedList, actualList);
@@ -195,12 +197,14 @@ class FiltersTest {
         expectedList.add(pathTempFile1.toAbsolutePath());
         expectedList.add(pathTempFile2.toAbsolutePath());
         expectedList.add(pathTempFile3.toAbsolutePath());
+        expectedList.sort(Path::compareTo);
 
         // Act
         DirectoryStream<Path> entries = Files.newDirectoryStream(pathTempDir1, filter);
         List<Path> actualList = new ArrayList<>();
         entries.forEach(e -> actualList.add(e.toAbsolutePath()));
         entries.close();
+        actualList.sort(Path::compareTo);
 
         // Assert
         assertTrue(expectedList.size() == actualList.size() && expectedList.containsAll(actualList));
@@ -215,12 +219,14 @@ class FiltersTest {
         expectedList.add(pathTempFile2.toAbsolutePath());
         expectedList.add(pathTempFile3.toAbsolutePath());
         expectedList.add(pathTempDir2.toAbsolutePath());
+        expectedList.sort(Path::compareTo);
 
         // Act
         DirectoryStream<Path> entries = Files.newDirectoryStream(pathTempDir1, filter);
         List<Path> actualList = new ArrayList<>();
         entries.forEach(e -> actualList.add(e.toAbsolutePath()));
         entries.close();
+        actualList.sort(Path::compareTo);
 
         // Assert
         assertTrue(expectedList.size() == actualList.size() && expectedList.containsAll(actualList));
